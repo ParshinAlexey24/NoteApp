@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Views\res\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\res\Add.png" />
+    <None Remove="Views\res\Change.png" />
+    <None Remove="Views\res\Delete.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\res\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\res\Add.png" />
+    <Resource Include="Views\res\Change.png" />
+    <Resource Include="Views\res\Delete.png" />
+  </ItemGroup>
+
+</Project>

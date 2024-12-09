@@ -1,0 +1,93 @@
+﻿<Window x:Class="NoteApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoteApp"
+        mc:Ignorable="d"
+        Title="Notes" Height="720" Width="1280" MinHeight="540" MinWidth="960"  Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Name="FileMenuItem" FontSize="16" Header="File" Margin="5, 5, 0, 0">
+                <MenuItem Name="CloseMenuItem" Header="Close" Click="CloseMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Name="EditMenuItem" FontSize="16" Header="Edit" Margin="5, 5, 0, 0">
+                <MenuItem Name="AddNoteMenuItem" Header="Add note" Click="AddNoteMenuItem_Click"/>
+                <MenuItem Name="EditNoteMenuItem" Header="Edit note" Click="EditNoteMenuItem_Click"/>
+                <MenuItem Name="RemoveNoteMenuItem" Header="Remove note" Click="RemoveNoteMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Name="HelpMenuItem" FontSize="16" Header="Help" Margin="5, 5, 0, 0">
+                <MenuItem Name="AboutMenuItem" Header="About" Click="AboutMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Border Grid.Row="1" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="16" Text="Category filter:"/>
+                <ComboBox Name="NoteCategoryComboBox" Grid.Row="0" Grid.Column="1" SelectedIndex="0" FontSize="16" ItemsSource="{Binding ReturnListOfAllCategories}" IsReadOnly="True" SelectionChanged="NoteCategoryComboBox_SelectionChanged">
+                </ComboBox>
+                <ListBox Name="NotesListBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding FilteredNotes}" SelectionChanged="NotesListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="18" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="5, 1" ToolTipService.ToolTip="Add note" Click="AddButton_Click">
+                            <Image Source="/Views/res/Add.png"/>
+                        </Button>
+                        <Button Margin="5, 1" ToolTipService.ToolTip="Edit note" Click="ChangeButton_Click">
+                            <Image Source="/Views/res/Change.png"/>
+                        </Button>
+                        <Button Margin="5, 1" ToolTipService.ToolTip="Remove note" Click="DeleteButton_Click">
+                            <Image Source="/Views/res/Delete.png"/>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Name="NoteBorder" Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="28" Margin="5" Text="{Binding Name}"/>
+                <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal">
+                    <TextBlock FontSize="16" Margin="5" Text="Category"/>
+                    <TextBox FontSize="16" Margin="5" Width="150" IsReadOnly="True" Text="{Binding NoteCategory}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Margin="5" Orientation="Horizontal">
+                    <TextBlock FontSize="16" Margin="5" Text="Create date"/>
+                    <TextBox FontSize="16" Margin="5" Width="150" IsReadOnly="True" Text="{Binding DateOfCreate, StringFormat='dd.MM.yyyy HH:mm:ss'}"/>
+                    <TextBlock FontSize="16" Margin="5" Text="Last change date"/>
+                    <TextBox FontSize="16" Margin="5" Width="150" IsReadOnly="True" Text="{Binding LastDateOfChange, StringFormat='dd.MM.yyyy HH:mm:ss'}"/>
+                </StackPanel>
+                <TextBox Grid.Row="3" FontSize="16" Margin="5" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding Text}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
